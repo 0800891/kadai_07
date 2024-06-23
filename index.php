@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>データ登録</title>
+    <title>課題_ブックマーク</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
         div {
@@ -29,17 +29,25 @@
     <form method="POST" action="insert.php">
         <div class="jumbotron">
             <fieldset>
-                <legend>フリーアンケート</legend>
-                <label>名前：<input type="text" name="name"></label><br>
-                <label>Email：<input type="text" name="email"></label><br>
-                <label><textArea name="content" rows="4" cols="40"></textArea></label><br>
+                <legend>ブックマーク</legend>
+                <label>名前　　：<input type="text" name="name"></label><br>
+                <label>URL　　：<input type="text" name="URL"></label><br>
+                <label>コメント：<textArea name="comment" rows="4" cols="40"></textArea></label><br>
                 <input type="submit" value="送信">
             </fieldset>
         </div>
     </form>
+    <p><button id="show">登録データ表示</button></p>
     <!-- Main[End] -->
 
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$("#show").on("click", function(){
+   
+    window.location.href = 'select.php';  
 
+})
+</script>
 </html>

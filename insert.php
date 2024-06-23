@@ -11,28 +11,28 @@
 
 //1. POSTデータ取得
 $name = $_POST['name'];
-$email = $_POST['email'];
-$content = $_POST['content'];
+$URL = $_POST['URL'];
+$comment = $_POST['comment'];
 
 //2. DB接続します
 try {
     //ID:'root', Password: xamppは 空白 ''
-    $pdo = new PDO('mysql:dbname=gs_db_class;charset=utf8;host=localhost', 'root', '');
+    $pdo = new PDO('mysql:dbname=gs_db_kadai07;charset=utf8;host=localhost', 'root', '');
 } catch (PDOException $e) {
     exit('DBConnectError:'.$e->getMessage());
 }
 
 //３．データ登録SQL作成
 $stmt = $pdo->prepare('INSERT INTO
-                gs_an_table( id, name, email, content, date )
-                VALUES( NULL, :name, :email, :content, now() ) ');
+                gs_bm_table( id, name, URL, comment, date )
+                VALUES( NULL, :name, :URL, :comment, now() ) ');
 
 //  2. バインド変数を用意
 // Integer 数値の場合 PDO::PARAM_INT
 // String文字列の場合 PDO::PARAM_STR
 $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-$stmt->bindValue(':email', $email, PDO::PARAM_STR);
-$stmt->bindValue(':content', $content, PDO::PARAM_STR);
+$stmt->bindValue(':URL', $URL, PDO::PARAM_STR);
+$stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
 
 //  3. 実行
 $status = $stmt->execute();

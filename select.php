@@ -8,13 +8,13 @@ require_once('funcs.php');
 //1.  DB接続します
 try {
   //ID:'root', Password: xamppは 空白 ''
-  $pdo = new PDO('mysql:dbname=gs_db_class;charset=utf8;host=localhost', 'root', '');
+  $pdo = new PDO('mysql:dbname=gs_db_kadai07;charset=utf8;host=localhost', 'root', '');
 } catch (PDOException $e) {
   exit('DBConnectError:'.$e->getMessage());
 }
 
 //２．データ取得SQL作成
-$stmt = $pdo->prepare("SELECT * FROM gs_an_table");
+$stmt = $pdo->prepare("SELECT * FROM gs_bm_table");
 $status = $stmt->execute();
 
 //３．データ表示
@@ -29,7 +29,7 @@ if ($status==false) {
   //FETCH_ASSOC=http://php.net/manual/ja/pdostatement.fetch.php
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
     $view .= "<p>";
-    $view .= h($result['date']) . ' ' . h($result['name']) . ' ' . h($result['email']) . ' ' . h($result['content']);
+    $view .= h($result['id']) . h($result['date']) . ' ' . h($result['name']) . ' ' . h($result['URL']) . ' ' . h($result['comment']);
     $view .= "</p>";
   }
 
@@ -62,10 +62,20 @@ if ($status==false) {
 <!-- Head[End] -->
 
 <!-- Main[Start] -->
+
+<p><button id="back">登録画面に戻る</button></p>
 <div>
     <div class="container jumbotron"><?= $view ?></div>
 </div>
 <!-- Main[End] -->
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$("#back").on("click", function(){
+   
+    window.location.href = 'index.php';  
+
+})
+</script>
 </html>
