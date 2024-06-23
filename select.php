@@ -14,7 +14,7 @@ try {
 }
 
 //２．データ取得SQL作成
-$stmt = $pdo->prepare("SELECT * FROM gs_bm_table");
+$stmt = $pdo->prepare("SELECT * FROM gs_bm_table_r1");
 $status = $stmt->execute();
 
 //３．データ表示
@@ -28,15 +28,21 @@ if ($status==false) {
   //Selectデータの数だけ自動でループしてくれる
   //FETCH_ASSOC=http://php.net/manual/ja/pdostatement.fetch.php
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
-    $view .= "<p>";
-    $view .= h($result['id']) . h($result['date']) . ' ' . h($result['name']) . ' ' . h($result['URL']) . ' ' . h($result['comment']);
-    $view .= "</p>";
+    $view .= "<tr>";
+    // $view .= h($result['id']) . h($result['date']) . ' ' . h($result['name']) . ' ' . h($result['URL']) . ' ' . h($result['comment']);
+    $view .= '<td>' . h($result['id']) .  '</td>' ;
+    $view .= '<td>' . h($result['name']) .  '</td>' ;
+    $view .= '<td><img src =' . h($result['image']) . 'alt = "デーコードされた画像" width="40%" height="40%"></td>' ;
+    $view .= '<td>' . h($result['comment']) .  '</td>' ;
+    $view .= '<td width="10px">' . h($result['URL']) .  '</td>' ;
+    $view .= '<td>' . h($result['date']) .  '</td>' ;
+    $view .= '<td><a href = delete.php?id=' . h($result['id']) .  '>delete</a></td>' ;
+    $view .= "</tr>";
   }
+  
 
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -65,12 +71,24 @@ if ($status==false) {
 
 <p><button id="back">登録画面に戻る</button></p>
 <div>
+
+  <table width="80%" border = "1" style = "border-collapse: collapse">
+    <tr>
+      <td>id</td>
+      <td>name</td>
+      <td>image</td>
+      <td>comment</td>
+      <td>URL</td>
+      <td>Date</td>
+      <td><a href = resetid.php?>id_Reset</a></td>
+    </tr>
     <div class="container jumbotron"><?= $view ?></div>
 </div>
 <!-- Main[End] -->
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- <script src="js/jquery-2.1.3.min.js"></script> -->
 <script>
 $("#back").on("click", function(){
    
